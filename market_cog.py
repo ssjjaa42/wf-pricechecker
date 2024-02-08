@@ -111,8 +111,9 @@ class Market(commands.Cog):
                 return order[0] + 10000
             else:
                 return order[0]
-
-        faction_augments.sort(key=lambda o: weighted_price(augment_orders[o][0]), reverse=True)
+        faction_augments.sort(key=lambda o:
+                              -1 if len(augment_orders[o]) == 0
+                              else weighted_price(augment_orders[o][0]), reverse=True)
         # Compile and send THE response
         response = f'```Top mods from {arg.title()}:\n'
         for i in range(min(5, len(faction_augments))):
